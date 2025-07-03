@@ -15,3 +15,33 @@
 # These defaults are type-checked at compile time.
 # Note: After modifying this file, run `make test` to ensure that the
 # generated defaults values from this files are valid.
+
+v1.26.2:
+  istio:
+    meshConfig:
+      holdApplicationUntilProxyStarts: "true"
+      gatewayTopology:
+        numTrustedProxies: 1
+      proxyMetadata:
+        # Enable basic DNS proxying
+        ISTIO_META_DNS_CAPTURE: "true"
+    pilot:
+      env:
+        # Enable multi-root CA
+        ISTIO_MULTIROOT_MESH: "true"
+
+v1.24.6:
+  istio:
+    meshConfig:
+      holdApplicationUntilProxyStarts: "true"
+      gatewayTopology:
+        numTrustedProxies: 1
+      proxyMetadata:
+        # Enable basic DNS proxying
+        ISTIO_META_DNS_CAPTURE: "true"
+        # Enable automatic address allocation, optional
+        ISTIO_META_DNS_AUTO_ALLOCATE: "true"
+    pilot:
+      env:
+        # Enable multi-root CA
+        ISTIO_MULTIROOT_MESH: "true"

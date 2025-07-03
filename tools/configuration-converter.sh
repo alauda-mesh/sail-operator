@@ -93,8 +93,8 @@ function add_mandatory_fields(){
     | del(.spec.values.istio_cni)
     | del(.spec.meshConfig)
     | del(.spec.hub) 
-    | del(.spec.tag) 
-    | del(.spec.values.gateways)" "$OUTPUT" 
+    | del(.spec.tag)
+    | del(.spec.values.gateways)" "$OUTPUT"
     
     # If VERSION is not empty, add .spec.version
     if [[ -n "$VERSION" ]]; then

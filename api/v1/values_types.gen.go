@@ -915,6 +915,8 @@ type IstiodRemoteConfig struct {
 }
 
 type Values struct {
+	// Configuration for ingress and egress gateways.
+	Gateways *GatewaysConfig `json:"gateways,omitempty"`
 	// Global configuration for Istio components.
 	Global *GlobalConfig `json:"global,omitempty"`
 	// Configuration for the Pilot component.

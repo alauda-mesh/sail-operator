@@ -384,6 +384,23 @@ _Appears in:_
 | `ALWAYS_FORWARD_ONLY` | Always forward the XFCC header in the request, regardless of whether the client connection is mTLS.  |
 
 
+#### GatewaysConfig
+
+
+
+
+
+
+
+_Appears in:_
+- [Values](#values)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `securityContext` _[SecurityContext](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#securitycontext-v1-core)_ | Define the security context for the pod. If unset, this will be automatically set to the minimum privileges required to bind to port 80 and 443. On Kubernetes 1.22+, this only requires the `net.ipv4.ip_unprivileged_port_start` sysctl. |  |  |
+| `seccompProfile` _[SeccompProfile](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#seccompprofile-v1-core)_ | Set to `type: RuntimeDefault` to use the default profile for templated gateways, if your container runtime supports it |  |  |
+
+
 #### GlobalConfig
 
 
@@ -3112,6 +3129,7 @@ _Appears in:_
 
 | Field | Description | Default | Validation |
 | --- | --- | --- | --- |
+| `gateways` _[GatewaysConfig](#gatewaysconfig)_ | Configuration for ingress and egress gateways. |  |  |
 | `global` _[GlobalConfig](#globalconfig)_ | Global configuration for Istio components. |  |  |
 | `pilot` _[PilotConfig](#pilotconfig)_ | Configuration for the Pilot component. |  |  |
 | `telemetry` _[TelemetryConfig](#telemetryconfig)_ | Controls whether telemetry is exported for Pilot. |  |  |

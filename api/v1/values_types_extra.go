@@ -18,6 +18,16 @@ import (
 	k8sv1 "k8s.io/api/core/v1"
 )
 
+type GatewaysConfig struct {
+	// Define the security context for the pod.
+	// If unset, this will be automatically set to the minimum privileges required to bind to port 80 and 443.
+	// On Kubernetes 1.22+, this only requires the `net.ipv4.ip_unprivileged_port_start` sysctl.
+	SecurityContext *k8sv1.SecurityContext `json:"securityContext,omitempty"`
+
+	// Set to `type: RuntimeDefault` to use the default profile for templated gateways, if your container runtime supports it
+	SeccompProfile *k8sv1.SeccompProfile `json:"seccompProfile,omitempty"`
+}
+
 type SDSConfigToken struct {
 	Aud string `json:"aud,omitempty"`
 }
