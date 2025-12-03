@@ -45,7 +45,7 @@ metadata:
     capabilities: Seamless Upgrades
     categories: Integration & Delivery, Networking, Security
     containerImage: build-harbor.alauda.cn/asm/servicemesh-operator2:2.1-latest
-    createdAt: "2025-11-26T10:50:06Z"
+    createdAt: "2025-12-03T06:41:02Z"
     description: Alauda Service Mesh v2 enables you to install, configure, and manage an instance of Alauda Service Mesh. Alauda Service Mesh is based on the open source Istio project.
     operatorframework.io/suggested-namespace: sail-operator
     operators.operatorframework.io/builder: operator-sdk-v1.42.0
@@ -651,10 +651,10 @@ spec:
             template:
               metadata:
                 annotations:
-                  images.v1_26_3.cni: build-harbor.alauda.cn/asm/install-cni:1.26.3-asm-r0
-                  images.v1_26_3.istiod: build-harbor.alauda.cn/asm/pilot:1.26.3-asm-r0
-                  images.v1_26_3.proxy: build-harbor.alauda.cn/asm/proxyv2:1.26.3-asm-r0
-                  images.v1_26_3.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.26.3-asm-r0
+                  images.v1_26_3.cni: build-harbor.alauda.cn/asm/install-cni:1.26.3-asm-r1
+                  images.v1_26_3.istiod: build-harbor.alauda.cn/asm/pilot:1.26.3-asm-r1
+                  images.v1_26_3.proxy: build-harbor.alauda.cn/asm/proxyv2:1.26.3-asm-r1
+                  images.v1_26_3.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.26.3-asm-r1
                   images.v1_28_0.cni: build-harbor.alauda.cn/asm/install-cni:1.28.0-asm-r1
                   images.v1_28_0.istiod: build-harbor.alauda.cn/asm/pilot:1.28.0-asm-r1
                   images.v1_28_0.proxy: build-harbor.alauda.cn/asm/proxyv2:1.28.0-asm-r1
