@@ -2,10 +2,10 @@ name: servicemesh-operator2
 deployment:
   name: servicemesh-operator2
   annotations:
-    images.v1_28_0.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.28.0-asm-r1
-    images.v1_28_0.istiod: build-harbor.alauda.cn/asm/pilot:1.28.0-asm-r1
-    images.v1_28_0.proxy: build-harbor.alauda.cn/asm/proxyv2:1.28.0-asm-r1
-    images.v1_28_0.cni: build-harbor.alauda.cn/asm/install-cni:1.28.0-asm-r1
+    images.v1_28_1.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.28.1-asm-r0
+    images.v1_28_1.istiod: build-harbor.alauda.cn/asm/pilot:1.28.1-asm-r0
+    images.v1_28_1.proxy: build-harbor.alauda.cn/asm/proxyv2:1.28.1-asm-r0
+    images.v1_28_1.cni: build-harbor.alauda.cn/asm/install-cni:1.28.1-asm-r0
     images.v1_26_3.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.26.3-asm-r1
     images.v1_26_3.istiod: build-harbor.alauda.cn/asm/pilot:1.26.3-asm-r1
     images.v1_26_3.proxy: build-harbor.alauda.cn/asm/proxyv2:1.26.3-asm-r1

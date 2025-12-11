@@ -1,13 +1,13 @@
 // Variables embedded for GitHub compatibility
-:istio_latest_version: 1.26.3
-:istio_latest_version_revision_format: 1-26-3
-:istio_latest_tag: v1.26-latest
-:istio_latest_minus_one_version: 1.26.2
-:istio_latest_minus_one_version_revision_format: 1-26-2
+:istio_latest_version: 1.28.1
+:istio_latest_version_revision_format: 1-28-1
+:istio_latest_tag: v1.28-latest
+:istio_latest_minus_one_version: 1.28.0
+:istio_latest_minus_one_version_revision_format: 1-28-0
 
 link:../[Return to Project Root]
 
-*Note*: To add new topics to this documentation, please follow the guidelines in the link:../../docs/guidelines/guidelines.md[guidelines] doc.
+*Note*: To add new topics to this documentation, please follow the guidelines in the link:../../docs/guidelines/guidelines.adoc[guidelines] doc.
 
 == Table of Contents
 
