@@ -62,7 +62,7 @@ spec:
           spec:
             default:
               namespace: ztunnel
-              version: v1.28.0
+              version: v1.28.1
             description: ZTunnelSpec defines the desired state of ZTunnel
             properties:
               namespace:
@@ -3424,16 +3424,17 @@ spec:
                     type: object
                 type: object
               version:
-                default: v1.28.0
+                default: v1.28.1
                 description: |-
                   Defines the version of Istio to install.
-                  Must be one of: v1.28-latest, v1.28.0, v1.26-latest, v1.26.3, v1.24-latest.
+                  Must be one of: v1.28-latest, v1.28.1, v1.26-latest, v1.26.3.
                 enum:
                 - v1.28-latest
-                - v1.28.0
+                - v1.28.1
                 - v1.26-latest
                 - v1.26.3
                 - v1.24-latest
+                - v1.24.6
                 type: string
             required:
             - namespace
@@ -3543,7 +3544,7 @@ spec:
             default:
               namespace: ztunnel
               profile: ambient
-              version: v1.28.0
+              version: v1.28.1
             description: ZTunnelSpec defines the desired state of ZTunnel
             properties:
               namespace:
@@ -6923,16 +6924,17 @@ spec:
                     type: object
                 type: object
               version:
-                default: v1.28.0
+                default: v1.28.1
                 description: |-
                   Defines the version of Istio to install.
-                  Must be one of: v1.28-latest, v1.28.0, v1.26-latest, v1.26.3, v1.24-latest.
+                  Must be one of: v1.28-latest, v1.28.1, v1.26-latest, v1.26.3.
                 enum:
                 - v1.28-latest
-                - v1.28.0
+                - v1.28.1
                 - v1.26-latest
                 - v1.26.3
                 - v1.24-latest
+                - v1.24.6
                 type: string
             required:
             - namespace
