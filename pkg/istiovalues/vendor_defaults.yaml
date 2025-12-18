@@ -22,22 +22,38 @@ v1.28.1:
       cni:
         enabled: true
         provider: multus
+      resources:
+        limits:
+          cpu: "2000m"
+          memory: 4096Mi
   istiocni:
     cni:
       chained: false
       provider: multus
       cniConfFileName: istio-cni.conf
+      resources:
+        limits:
+          cpu: "1000m"
+          memory: 1024Mi
 v1.26.3:
   istio:
     pilot:
       cni:
         enabled: true
         provider: multus
+      resources:
+        limits:
+          cpu: "2000m"
+          memory: 4096Mi
   istiocni:
     cni:
       chained: false
       provider: multus
       cniConfFileName: istio-cni.conf
+      resources:
+        limits:
+          cpu: "1000m"
+          memory: 1024Mi
 v1.24.6:
   istio:
     pilot:
