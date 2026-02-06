@@ -1,4 +1,4 @@
-VERSION = 2.1.0
+VERSION = 2.1.1
 
 OPERATOR_NAME = servicemesh-operator2
 HUB = build-harbor.alauda.cn/asm
