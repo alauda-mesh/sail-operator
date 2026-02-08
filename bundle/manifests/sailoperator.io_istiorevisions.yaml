@@ -117,8 +117,7 @@ spec:
                     x-kubernetes-preserve-unknown-fields: true
                   gatewayClasses:
                     description: Configuration for Gateway Classes
-                    format: byte
-                    type: string
+                    x-kubernetes-preserve-unknown-fields: true
                   global:
                     description: Global configuration for Istio components.
                     properties:
@@ -10041,9 +10040,10 @@ spec:
               version:
                 description: |-
                   Defines the version of Istio to install.
-                  Must be one of: v1.28.0, v1.26.3.
+                  Must be one of: v1.28.3, v1.28.1, v1.26.3.
                 enum:
-                - v1.28.0
+                - v1.28.3
+                - v1.28.1
                 - v1.26.3
                 - v1.24.6
                 type: string

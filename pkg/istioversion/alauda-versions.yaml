@@ -23,17 +23,27 @@
 versions:
   # v1.28
   - name: v1.28-latest
-    ref: v1.28.0
-  - name: v1.28.0
-    version: 1.28.0
+    ref: v1.28.3
+  - name: v1.28.3
+    version: 1.28.3
     repo: https://github.com/istio/istio
-    commit: 1.28.0
+    commit: 1.28.3
     charts:
-      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.0-asm-r1/helm/base-1.28.0-asm-r1.tgz
-      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.0-asm-r1/helm/istiod-1.28.0-asm-r1.tgz
-      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.0-asm-r1/helm/gateway-1.28.0-asm-r1.tgz
-      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.0-asm-r1/helm/cni-1.28.0-asm-r1.tgz
-      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.0-asm-r1/helm/ztunnel-1.28.0-asm-r1.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.3-asm-r0/helm/base-1.28.3-asm-r0.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.3-asm-r0/helm/istiod-1.28.3-asm-r0.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.3-asm-r0/helm/gateway-1.28.3-asm-r0.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.3-asm-r0/helm/cni-1.28.3-asm-r0.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.3-asm-r0/helm/ztunnel-1.28.3-asm-r0.tgz
+  - name: v1.28.1
+    version: 1.28.1
+    repo: https://github.com/istio/istio
+    commit: 1.28.1
+    charts:
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.1-asm-r1/helm/base-1.28.1-asm-r1.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.1-asm-r1/helm/istiod-1.28.1-asm-r1.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.1-asm-r1/helm/gateway-1.28.1-asm-r1.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.1-asm-r1/helm/cni-1.28.1-asm-r1.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.28.1-asm-r1/helm/ztunnel-1.28.1-asm-r1.tgz
   # v1.26
   - name: v1.26-latest
     ref: v1.26.3
@@ -42,11 +52,11 @@ versions:
     repo: https://github.com/istio/istio
     commit: 1.26.3
     charts:
-      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.26.3-asm-r0/helm/base-1.26.3-asm-r0.tgz
-      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.26.3-asm-r0/helm/istiod-1.26.3-asm-r0.tgz
-      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.26.3-asm-r0/helm/gateway-1.26.3-asm-r0.tgz
-      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.26.3-asm-r0/helm/cni-1.26.3-asm-r0.tgz
-      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.26.3-asm-r0/helm/ztunnel-1.26.3-asm-r0.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.26.3-asm-r2/helm/base-1.26.3-asm-r2.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.26.3-asm-r2/helm/istiod-1.26.3-asm-r2.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.26.3-asm-r2/helm/gateway-1.26.3-asm-r2.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.26.3-asm-r2/helm/cni-1.26.3-asm-r2.tgz
+      - https://pub-a1e2ecfe619448dbb7a1f9a1d20f807d.r2.dev/1.26.3-asm-r2/helm/ztunnel-1.26.3-asm-r2.tgz
   # v1.24
   - name: v1.24-latest
     ref: v1.24.6

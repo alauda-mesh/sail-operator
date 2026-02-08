@@ -28,10 +28,10 @@ const (
 type IstioCNISpec struct {
 	// +sail:version
 	// Defines the version of Istio to install.
-	// Must be one of: v1.28-latest, v1.28.0, v1.26-latest, v1.26.3.
-	// +operator-sdk:csv:customresourcedefinitions:type=spec,order=1,displayName="Istio Version",xDescriptors={"urn:alm:descriptor:com.tectonic.ui:fieldGroup:General", "urn:alm:descriptor:com.tectonic.ui:select:v1.28-latest", "urn:alm:descriptor:com.tectonic.ui:select:v1.28.0", "urn:alm:descriptor:com.tectonic.ui:select:v1.26-latest", "urn:alm:descriptor:com.tectonic.ui:select:v1.26.3"}
-	// +kubebuilder:validation:Enum=v1.28-latest;v1.28.0;v1.26-latest;v1.26.3;v1.24-latest;v1.24.6
-	// +kubebuilder:default=v1.28.0
+	// Must be one of: v1.28-latest, v1.28.3, v1.28.1, v1.26-latest, v1.26.3.
+	// +operator-sdk:csv:customresourcedefinitions:type=spec,order=1,displayName="Istio Version",xDescriptors={"urn:alm:descriptor:com.tectonic.ui:fieldGroup:General", "urn:alm:descriptor:com.tectonic.ui:select:v1.28-latest", "urn:alm:descriptor:com.tectonic.ui:select:v1.28.3", "urn:alm:descriptor:com.tectonic.ui:select:v1.28.1", "urn:alm:descriptor:com.tectonic.ui:select:v1.26-latest", "urn:alm:descriptor:com.tectonic.ui:select:v1.26.3"}
+	// +kubebuilder:validation:Enum=v1.28-latest;v1.28.3;v1.28.1;v1.26-latest;v1.26.3;v1.24-latest;v1.24.6
+	// +kubebuilder:default=v1.28.3
 	Version string `json:"version"`
 
 	// +sail:profile
@@ -168,7 +168,7 @@ const (
 // +kubebuilder:resource:scope=Cluster,categories=istio-io
 // +kubebuilder:subresource:status
 // +kubebuilder:printcolumn:name="Namespace",type="string",JSONPath=".spec.namespace",description="The namespace of the istio-cni-node DaemonSet."
-// +kubebuilder:printcolumn:name="Profile",type="string",JSONPath=".spec.values.profile",description="The selected profile (collection of value presets)."
+// +kubebuilder:printcolumn:name="Profile",type="string",JSONPath=".spec.profile",description="The selected profile (collection of value presets)."
 // +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(@.type==\"Ready\")].status",description="Whether the Istio CNI installation is ready to handle requests."
 // +kubebuilder:printcolumn:name="Status",type="string",JSONPath=".status.state",description="The current state of this object."
 // +kubebuilder:printcolumn:name="Version",type="string",JSONPath=".spec.version",description="The version of the Istio CNI installation."
@@ -181,7 +181,7 @@ type IstioCNI struct {
 	// +optional
 	metav1.ObjectMeta `json:"metadata"`
 
-	// +kubebuilder:default={version: "v1.28.0", namespace: "istio-cni"}
+	// +kubebuilder:default={version: "v1.28.3", namespace: "istio-cni"}
 	// +optional
 	Spec IstioCNISpec `json:"spec"`
 
