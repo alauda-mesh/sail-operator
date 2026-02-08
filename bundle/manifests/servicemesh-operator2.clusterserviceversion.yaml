@@ -16,7 +16,7 @@ metadata:
               "inactiveRevisionDeletionGracePeriodSeconds": 30,
               "type": "InPlace"
             },
-            "version": "v1.28.1"
+            "version": "v1.28.3"
           }
         },
         {
@@ -27,7 +27,7 @@ metadata:
           },
           "spec": {
             "namespace": "istio-cni",
-            "version": "v1.28.1"
+            "version": "v1.28.3"
           }
         },
         {
@@ -38,14 +38,14 @@ metadata:
           },
           "spec": {
             "namespace": "ztunnel",
-            "version": "v1.28.1"
+            "version": "v1.28.3"
           }
         }
       ]
     capabilities: Seamless Upgrades
     categories: Integration & Delivery, Networking, Security
     containerImage: build-harbor.alauda.cn/asm/servicemesh-operator2:2.1-latest
-    createdAt: "2025-12-11T10:04:41Z"
+    createdAt: "2026-02-06T06:15:23Z"
     description: Alauda Service Mesh v2 enables you to install, configure, and manage an instance of Alauda Service Mesh. Alauda Service Mesh is based on the open source Istio project.
     operatorframework.io/suggested-namespace: sail-operator
     operators.operatorframework.io/builder: operator-sdk-v1.42.0
@@ -58,7 +58,7 @@ metadata:
   labels:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
-  name: servicemesh-operator2.v2.1.0
+  name: servicemesh-operator2.v2.1.1
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -170,12 +170,13 @@ spec:
         specDescriptors:
           - description: |-
               Defines the version of Istio to install.
-              Must be one of: v1.28-latest, v1.28.1, v1.26-latest, v1.26.3.
+              Must be one of: v1.28-latest, v1.28.3, v1.28.1, v1.26-latest, v1.26.3.
             displayName: Istio Version
             path: version
             x-descriptors:
               - urn:alm:descriptor:com.tectonic.ui:fieldGroup:General
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28-latest
+              - urn:alm:descriptor:com.tectonic.ui:select:v1.28.3
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.1
               - urn:alm:descriptor:com.tectonic.ui:select:v1.26-latest
               - urn:alm:descriptor:com.tectonic.ui:select:v1.26.3
@@ -216,11 +217,12 @@ spec:
         specDescriptors:
           - description: |-
               Defines the version of Istio to install.
-              Must be one of: v1.28.1, v1.26.3.
+              Must be one of: v1.28.3, v1.28.1, v1.26.3.
             displayName: Istio Version
             path: version
             x-descriptors:
               - urn:alm:descriptor:com.tectonic.ui:fieldGroup:General
+              - urn:alm:descriptor:com.tectonic.ui:select:v1.28.3
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.1
               - urn:alm:descriptor:com.tectonic.ui:select:v1.26.3
           - description: Namespace to which the Istio components should be installed.
@@ -257,12 +259,13 @@ spec:
               - urn:alm:descriptor:com.tectonic.ui:select:RevisionBased
           - description: |-
               Defines the version of Istio to install.
-              Must be one of: v1.28-latest, v1.28.1, v1.26-latest, v1.26.3.
+              Must be one of: v1.28-latest, v1.28.3, v1.28.1, v1.26-latest, v1.26.3.
             displayName: Istio Version
             path: version
             x-descriptors:
               - urn:alm:descriptor:com.tectonic.ui:fieldGroup:General
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28-latest
+              - urn:alm:descriptor:com.tectonic.ui:select:v1.28.3
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.1
               - urn:alm:descriptor:com.tectonic.ui:select:v1.26-latest
               - urn:alm:descriptor:com.tectonic.ui:select:v1.26.3
@@ -321,12 +324,13 @@ spec:
         specDescriptors:
           - description: |-
               Defines the version of Istio to install.
-              Must be one of: v1.28-latest, v1.28.1, v1.26-latest, v1.26.3.
+              Must be one of: v1.28-latest, v1.28.3, v1.28.1, v1.26-latest, v1.26.3.
             displayName: Istio Version
             path: version
             x-descriptors:
               - urn:alm:descriptor:com.tectonic.ui:fieldGroup:General
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28-latest
+              - urn:alm:descriptor:com.tectonic.ui:select:v1.28.3
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.1
               - urn:alm:descriptor:com.tectonic.ui:select:v1.26-latest
               - urn:alm:descriptor:com.tectonic.ui:select:v1.26.3
@@ -385,9 +389,26 @@ spec:
             - apiGroups:
                 - ""
               resources:
-                - '*'
+                - configmaps
+                - endpoints
+                - events
+                - namespaces
+                - nodes
+                - persistentvolumeclaims
+                - pods
+                - replicationcontrollers
+                - resourcequotas
+                - secrets
+                - serviceaccounts
+                - services
               verbs:
-                - '*'
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
             - apiGroups:
                 - admissionregistration.k8s.io
               resources:
@@ -396,7 +417,13 @@ spec:
                 - validatingadmissionpolicybindings
                 - validatingwebhookconfigurations
               verbs:
-                - '*'
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
             - apiGroups:
                 - apiextensions.k8s.io
               resources:
@@ -411,13 +438,25 @@ spec:
                 - daemonsets
                 - deployments
               verbs:
-                - '*'
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
             - apiGroups:
                 - autoscaling
               resources:
                 - horizontalpodautoscalers
               verbs:
-                - '*'
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
             - apiGroups:
                 - discovery.k8s.io
               resources:
@@ -435,19 +474,37 @@ spec:
               resources:
                 - network-attachment-definitions
               verbs:
-                - '*'
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
             - apiGroups:
                 - networking.istio.io
               resources:
                 - envoyfilters
               verbs:
-                - '*'
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
             - apiGroups:
                 - networking.k8s.io
               resources:
                 - networkpolicies
               verbs:
-                - '*'
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
             - apiGroups:
                 - sailoperator.io
               resources:
@@ -583,7 +640,13 @@ spec:
               resources:
                 - poddisruptionbudgets
               verbs:
-                - '*'
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
             - apiGroups:
                 - rbac.authorization.k8s.io
               resources:
@@ -591,9 +654,16 @@ spec:
                 - clusterroles
                 - rolebindings
                 - roles
-                - serviceaccount
               verbs:
-                - '*'
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+                - bind
+                - escalate
             - apiGroups:
                 - security.openshift.io
               resourceNames:
@@ -650,14 +720,18 @@ spec:
             template:
               metadata:
                 annotations:
-                  images.v1_26_3.cni: build-harbor.alauda.cn/asm/install-cni:1.26.3-asm-r1
-                  images.v1_26_3.istiod: build-harbor.alauda.cn/asm/pilot:1.26.3-asm-r1
-                  images.v1_26_3.proxy: build-harbor.alauda.cn/asm/proxyv2:1.26.3-asm-r1
-                  images.v1_26_3.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.26.3-asm-r1
-                  images.v1_28_1.cni: build-harbor.alauda.cn/asm/install-cni:1.28.1-asm-r0
-                  images.v1_28_1.istiod: build-harbor.alauda.cn/asm/pilot:1.28.1-asm-r0
-                  images.v1_28_1.proxy: build-harbor.alauda.cn/asm/proxyv2:1.28.1-asm-r0
-                  images.v1_28_1.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.28.1-asm-r0
+                  images.v1_26_3.cni: build-harbor.alauda.cn/asm/install-cni:1.26.3-asm-r2
+                  images.v1_26_3.istiod: build-harbor.alauda.cn/asm/pilot:1.26.3-asm-r2
+                  images.v1_26_3.proxy: build-harbor.alauda.cn/asm/proxyv2:1.26.3-asm-r2
+                  images.v1_26_3.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.26.3-asm-r2
+                  images.v1_28_1.cni: build-harbor.alauda.cn/asm/install-cni:1.28.1-asm-r1
+                  images.v1_28_1.istiod: build-harbor.alauda.cn/asm/pilot:1.28.1-asm-r1
+                  images.v1_28_1.proxy: build-harbor.alauda.cn/asm/proxyv2:1.28.1-asm-r1
+                  images.v1_28_1.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.28.1-asm-r1
+                  images.v1_28_3.cni: build-harbor.alauda.cn/asm/install-cni:1.28.3-asm-r0
+                  images.v1_28_3.istiod: build-harbor.alauda.cn/asm/pilot:1.28.3-asm-r0
+                  images.v1_28_3.proxy: build-harbor.alauda.cn/asm/proxyv2:1.28.3-asm-r0
+                  images.v1_28_3.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.28.3-asm-r0
                   kubectl.kubernetes.io/default-container: sail-operator
                 labels:
                   app.kubernetes.io/created-by: servicemesh-operator2
@@ -787,4 +861,4 @@ spec:
   maturity: alpha
   provider:
     name: Alauda
-  version: 2.1.0
+  version: 2.1.1

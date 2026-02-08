@@ -22,7 +22,7 @@ spec:
       name: Namespace
       type: string
     - description: The selected profile (collection of value presets).
-      jsonPath: .spec.values.profile
+      jsonPath: .spec.profile
       name: Profile
       type: string
     - description: Total number of IstioRevision objects currently associated with
@@ -88,7 +88,7 @@ spec:
               namespace: istio-system
               updateStrategy:
                 type: InPlace
-              version: v1.28.1
+              version: v1.28.3
             description: IstioSpec defines the desired state of Istio
             properties:
               namespace:
@@ -190,8 +190,7 @@ spec:
                     x-kubernetes-preserve-unknown-fields: true
                   gatewayClasses:
                     description: Configuration for Gateway Classes
-                    format: byte
-                    type: string
+                    x-kubernetes-preserve-unknown-fields: true
                   global:
                     description: Global configuration for Istio components.
                     properties:
@@ -10112,12 +10111,13 @@ spec:
                     type: object
                 type: object
               version:
-                default: v1.28.1
+                default: v1.28.3
                 description: |-
                   Defines the version of Istio to install.
-                  Must be one of: v1.28-latest, v1.28.1, v1.26-latest, v1.26.3.
+                  Must be one of: v1.28-latest, v1.28.3, v1.28.1, v1.26-latest, v1.26.3.
                 enum:
                 - v1.28-latest
+                - v1.28.3
                 - v1.28.1
                 - v1.26-latest
                 - v1.26.3
