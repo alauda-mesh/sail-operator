@@ -8,6 +8,7 @@
 # 脚本会打印 NOTICE 提示。
 # 退出码: 0=OK  1=失败（含 pin 低于 go.mod go directive 的情况）
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 main() {
@@ -18,7 +19,7 @@ main() {
   [[ "$V" =~ ^go1\.[0-9]+\.[0-9]+$ ]] || die "GOTOOLCHAIN 版本格式应为 go1.X.Y，收到: $V"
   local WT; WT="$(resolve_worktree)"
 
-  cd "$WT"
+  cd "$WT" || die "无法进入 worktree $WT"
   local f=".github/workflows/$WORKFLOW_FILE"
   [[ -f "$f" ]] || die "缺少 $f"
 

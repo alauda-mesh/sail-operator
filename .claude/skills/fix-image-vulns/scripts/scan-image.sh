@@ -16,6 +16,7 @@
 # 环境变量: SCAN_API_PRIMARY / SCAN_API_BACKUP、SCAN_API（显式指定单一服务，跳过主备探测与切换）、
 #           MAX_ATTEMPTS=3、RETRY_DELAY=15、SCAN_TIMEOUT=240
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 MAX_ATTEMPTS="${MAX_ATTEMPTS:-3}"

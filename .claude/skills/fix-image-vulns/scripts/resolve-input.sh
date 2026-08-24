@@ -7,6 +7,7 @@
 # 退出码: 0=OK  1=失败
 # 注意: run 模式需要 gh 认证；Bash timeout 建议 120000。
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 main() {
@@ -80,8 +81,10 @@ $all"
     echo "run $id [$WORKFLOW_NAME] 分支 $head_branch"
     echo "  $url"
     echo "  全部产出镜像:"
+    # shellcheck disable=SC2001  # 逐行加前缀，参数展开做不到
     sed 's/^/    /' <<<"$all"
     echo "  纳入扫描（-bundle 镜像不会有漏洞，不在范围）:"
+    # shellcheck disable=SC2001  # 逐行加前缀，参数展开做不到
     sed 's/^/    /' <<<"$kept"
     if [[ "$head_branch" != "$BASE_BRANCH" ]]; then
       echo

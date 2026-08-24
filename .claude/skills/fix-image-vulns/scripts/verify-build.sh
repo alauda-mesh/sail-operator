@@ -7,6 +7,7 @@
 # 退出码: 0=构建验证通过（RESULT: BUILD_OK） 非0=失败（保留现场供分析）
 # 注意: 首次可能要下载工具链和依赖，Bash timeout 设 600000。
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 main() {
@@ -15,7 +16,7 @@ main() {
   command -v go >/dev/null 2>&1 || die "找不到 go 工具链"
   local WT; WT="$(resolve_worktree)"
 
-  cd "$WT"
+  cd "$WT" || die "无法进入 worktree $WT"
   local pin; pin="$(read_gotoolchain_pin "$WT")"
   export GOTOOLCHAIN="${pin:-auto}"
   info "GOTOOLCHAIN=$GOTOOLCHAIN（${pin:+与流水线 pin 一致}${pin:-workflow 未 pin，按 go.mod 要求自动选择}）"

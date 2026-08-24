@@ -6,6 +6,7 @@
 # 环境变量: FIX_WATCH_INTERVAL=60  FIX_WATCH_TIMEOUT=5400
 # 注意: 多平台镜像构建通常几十分钟，必须用后台方式运行（Bash 的 run_in_background: true）。
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 INTERVAL="${FIX_WATCH_INTERVAL:-60}"
@@ -66,6 +67,7 @@ main() {
   echo
   echo "RESULT: SUCCESS"
   echo "新镜像:"
+  # shellcheck disable=SC2001  # 逐行加前缀，参数展开做不到
   sed 's/^/  /' <<<"$imgs"
   echo "下一步: 执行 scan-image.sh 做第 ${NEXT} 轮回归扫描（Bash timeout 600000）"
 }

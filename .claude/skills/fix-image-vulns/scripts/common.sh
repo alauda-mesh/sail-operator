@@ -13,6 +13,7 @@ REPO="${FIX_REPO:-alauda-mesh/sail-operator}"
 SCAN_API_PRIMARY="${SCAN_API_PRIMARY:-http://192.168.141.42:8888}"
 SCAN_API_BACKUP="${SCAN_API_BACKUP:-http://192.168.25.100:8888}"
 WORKFLOW_FILE="alauda-release.yaml"
+# shellcheck disable=SC2034  # 由 source 本文件的脚本使用
 WORKFLOW_NAME="Alauda Release workflow"
 # 扫描/修复范围：只处理 servicemesh-operator2 主镜像；-bundle 镜像不会有漏洞，不在范围
 IMAGE_REPO_NAME="servicemesh-operator2"

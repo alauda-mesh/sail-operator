@@ -4,6 +4,7 @@
 # 幂等：修复分支已有 open PR 时直接复用（回归轮 push 新 commit 即可）。
 # 输出: PR_NUMBER= / PR_URL=（同时写入状态）。
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 main() {
@@ -17,7 +18,7 @@ main() {
   [[ -n "${FIX_BRANCH:-}" ]] || die "状态中没有 FIX_BRANCH（先执行 create-fix-branch.sh）"
   local WT; WT="$(resolve_worktree)"
 
-  cd "$WT"
+  cd "$WT" || die "无法进入 worktree $WT"
   [[ "$(git branch --show-current)" == "$FIX_BRANCH" ]] || die "worktree 当前分支不是 $FIX_BRANCH"
   [[ -z "$(git status --porcelain)" ]] || die "worktree 有未提交改动，请先 commit -s（禁止 amend，一律新建 commit）"
   local n

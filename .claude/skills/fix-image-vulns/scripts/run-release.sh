@@ -7,6 +7,7 @@
 # 退出码: 0=已触发并定位到 run  1=失败
 # 环境变量: FIX_APPEAR_TIMEOUT=120（等 run 出现的秒数）
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 APPEAR_TIMEOUT="${FIX_APPEAR_TIMEOUT:-120}"

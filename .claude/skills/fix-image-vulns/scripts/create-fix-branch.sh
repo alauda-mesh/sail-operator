@@ -6,6 +6,7 @@
 # 幂等：worktree 已在对应修复分支上时直接复用（回归轮追加 commit 用）。
 # 输出: WORKTREE= / BRANCH= / BASE=
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 main() {
@@ -15,7 +16,7 @@ main() {
   git rev-parse --verify --quiet "refs/heads/$BASE_BRANCH" >/dev/null \
     || die "本地不存在分支 $BASE_BRANCH"
 
-  local FIX_BRANCH="fix/cve-$(date -u +%Y%m%d)"
+  local FIX_BRANCH; FIX_BRANCH="fix/cve-$(date -u +%Y%m%d)"
   local WT="$STATE_DIR/worktree"
 
   # 基分支落后 origin 时提醒（修复仍基于本地 HEAD，是否先同步由模型与用户判断）
