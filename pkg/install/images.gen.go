@@ -21,28 +21,28 @@ import "github.com/istio-ecosystem/sail-operator/pkg/config"
 func init() {
 	config.Config.ImageDigests = map[string]config.IstioImageConfig{
 		"v1.30.3": {
-			IstiodImage:  "build-harbor.alauda.cn/asm/pilot:1.30.3-asm-rc.4",
-			ProxyImage:   "build-harbor.alauda.cn/asm/proxyv2:1.30.3-asm-rc.4",
-			CNIImage:     "build-harbor.alauda.cn/asm/install-cni:1.30.3-asm-rc.4",
-			ZTunnelImage: "build-harbor.alauda.cn/asm/ztunnel:1.30.3-asm-rc.4",
+			IstiodImage:  "build-harbor.alauda.cn/asm/pilot:1.30.3-asm-r0",
+			ProxyImage:   "build-harbor.alauda.cn/asm/proxyv2:1.30.3-asm-r0",
+			CNIImage:     "build-harbor.alauda.cn/asm/install-cni:1.30.3-asm-r0",
+			ZTunnelImage: "build-harbor.alauda.cn/asm/ztunnel:1.30.3-asm-r0",
 		},
 		"v1.28.6": {
-			IstiodImage:  "build-harbor.alauda.cn/asm/pilot:1.28.6-asm-r5",
-			ProxyImage:   "build-harbor.alauda.cn/asm/proxyv2:1.28.6-asm-r5",
-			CNIImage:     "build-harbor.alauda.cn/asm/install-cni:1.28.6-asm-r5",
-			ZTunnelImage: "build-harbor.alauda.cn/asm/ztunnel:1.28.6-asm-r5",
+			IstiodImage:  "build-harbor.alauda.cn/asm/pilot:1.28.6-asm-r6",
+			ProxyImage:   "build-harbor.alauda.cn/asm/proxyv2:1.28.6-asm-r6",
+			CNIImage:     "build-harbor.alauda.cn/asm/install-cni:1.28.6-asm-r6",
+			ZTunnelImage: "build-harbor.alauda.cn/asm/ztunnel:1.28.6-asm-r6",
 		},
 		"v1.28.3": {
-			IstiodImage:  "build-harbor.alauda.cn/asm/pilot:1.28.3-asm-r4",
-			ProxyImage:   "build-harbor.alauda.cn/asm/proxyv2:1.28.3-asm-r4",
-			CNIImage:     "build-harbor.alauda.cn/asm/install-cni:1.28.3-asm-r4",
-			ZTunnelImage: "build-harbor.alauda.cn/asm/ztunnel:1.28.3-asm-r4",
+			IstiodImage:  "build-harbor.alauda.cn/asm/pilot:1.28.3-asm-r5",
+			ProxyImage:   "build-harbor.alauda.cn/asm/proxyv2:1.28.3-asm-r5",
+			CNIImage:     "build-harbor.alauda.cn/asm/install-cni:1.28.3-asm-r5",
+			ZTunnelImage: "build-harbor.alauda.cn/asm/ztunnel:1.28.3-asm-r5",
 		},
 		"v1.28.1": {
-			IstiodImage:  "build-harbor.alauda.cn/asm/pilot:1.28.1-asm-r5",
-			ProxyImage:   "build-harbor.alauda.cn/asm/proxyv2:1.28.1-asm-r5",
-			CNIImage:     "build-harbor.alauda.cn/asm/install-cni:1.28.1-asm-r5",
-			ZTunnelImage: "build-harbor.alauda.cn/asm/ztunnel:1.28.1-asm-r5",
+			IstiodImage:  "build-harbor.alauda.cn/asm/pilot:1.28.1-asm-r6",
+			ProxyImage:   "build-harbor.alauda.cn/asm/proxyv2:1.28.1-asm-r6",
+			CNIImage:     "build-harbor.alauda.cn/asm/install-cni:1.28.1-asm-r6",
+			ZTunnelImage: "build-harbor.alauda.cn/asm/ztunnel:1.28.1-asm-r6",
 		},
 	}
 }
