@@ -18,6 +18,7 @@ package ambient
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	v1 "github.com/istio-ecosystem/sail-operator/api/v1"
@@ -159,6 +160,39 @@ spec:
 				})
 			})
 
+			When("Istio version is updated", func() {
+				BeforeAll(func(ctx SpecContext) {
+					Log(fmt.Sprintf("Updating Istio from %s to %s", baseVersion.Name, newVersion.Name))
+					Eventually(func(g Gomega) {
+						istio := &v1.Istio{}
+						g.Expect(cl.Get(ctx, kube.Key(istioName), istio)).To(Succeed())
+						istio.Spec.Version = newVersion.Name
+						g.Expect(cl.Update(ctx, istio)).To(Succeed())
+					}).Should(Succeed())
+					Success("Istio version updated")
+				})
+
+				It("should reconcile and remain Ready", func(ctx SpecContext) {
+					Eventually(func(g Gomega) {
+						istio := &v1.Istio{}
+						g.Expect(cl.Get(ctx, kube.Key(istioName), istio)).To(Succeed())
+						g.Expect(istio.Spec.Version).To(Equal(newVersion.Name))
+						g.Expect(istio).To(HaveConditionStatus(v1.IstioConditionReady, metav1.ConditionTrue))
+					}).WithTimeout(240*time.Second).Should(Succeed(), "Istio should be Ready with new version")
+					Success("Istio successfully updated")
+				})
+
+				It("should update the istiod deployment", func(ctx SpecContext) {
+					Eventually(func(g Gomega) {
+						deployment := &appsv1.Deployment{}
+						g.Expect(cl.Get(ctx, kube.Key("istiod", controlPlaneNamespace), deployment)).To(Succeed())
+						g.Expect(deployment.Status.AvailableReplicas).To(BeNumerically(">", 0))
+						g.Expect(deployment.Status.UpdatedReplicas).To(Equal(deployment.Status.Replicas))
+					}).WithTimeout(180*time.Second).Should(Succeed(), "istiod deployment should be fully updated")
+					Success("istiod deployment updated successfully")
+				})
+			})
+
 			When("IstioCNI version is updated", func() {
 				BeforeAll(func(ctx SpecContext) {
 					Log(fmt.Sprintf("Updating IstioCNI from %s to %s", baseVersion.Name, newVersion.Name))
@@ -244,39 +278,6 @@ spec:
 						g.Expect(validator.ValidateProxyVersion(ctx, newVersion.Version)).To(Succeed())
 					}).WithTimeout(120*time.Second).Should(Succeed(), "Workloads should have connectivity with new ZTunnel version")
 					Success("Workloads have connectivity with new ZTunnel version")
-				})
-			})
-
-			When("Istio version is updated", func() {
-				BeforeAll(func(ctx SpecContext) {
-					Log(fmt.Sprintf("Updating Istio from %s to %s", baseVersion.Name, newVersion.Name))
-					Eventually(func(g Gomega) {
-						istio := &v1.Istio{}
-						g.Expect(cl.Get(ctx, kube.Key(istioName), istio)).To(Succeed())
-						istio.Spec.Version = newVersion.Name
-						g.Expect(cl.Update(ctx, istio)).To(Succeed())
-					}).Should(Succeed())
-					Success("Istio version updated")
-				})
-
-				It("should reconcile and remain Ready", func(ctx SpecContext) {
-					Eventually(func(g Gomega) {
-						istio := &v1.Istio{}
-						g.Expect(cl.Get(ctx, kube.Key(istioName), istio)).To(Succeed())
-						g.Expect(istio.Spec.Version).To(Equal(newVersion.Name))
-						g.Expect(istio).To(HaveConditionStatus(v1.IstioConditionReady, metav1.ConditionTrue))
-					}).WithTimeout(240*time.Second).Should(Succeed(), "Istio should be Ready with new version")
-					Success("Istio successfully updated")
-				})
-
-				It("should update the istiod deployment", func(ctx SpecContext) {
-					Eventually(func(g Gomega) {
-						deployment := &appsv1.Deployment{}
-						g.Expect(cl.Get(ctx, kube.Key("istiod", controlPlaneNamespace), deployment)).To(Succeed())
-						g.Expect(deployment.Status.AvailableReplicas).To(BeNumerically(">", 0))
-						g.Expect(deployment.Status.UpdatedReplicas).To(Equal(deployment.Status.Replicas))
-					}).WithTimeout(180*time.Second).Should(Succeed(), "istiod deployment should be fully updated")
-					Success("istiod deployment updated successfully")
 				})
 			})
 
@@ -413,99 +414,36 @@ spec:
 				})
 			})
 
-			When("shared dependencies are updated to latest version", func() {
-				BeforeAll(func(ctx SpecContext) {
-					// Upgrade IstioCNI
-					cni := &v1.IstioCNI{}
-					Expect(cl.Get(ctx, kube.Key("default"), cni)).To(Succeed())
-					Log(fmt.Sprintf("Updating IstioCNI from %s to %s", baseVersion.Name, newVersion.Name))
-					cni.Spec.Version = newVersion.Name
-					Expect(cl.Update(ctx, cni)).To(Succeed())
-
-					// Upgrade ZTunnel
-					ztunnel := &v1.ZTunnel{}
-					Expect(cl.Get(ctx, kube.Key("default"), ztunnel)).To(Succeed())
-					Log(fmt.Sprintf("Updating ZTunnel from %s to %s", baseVersion.Name, newVersion.Name))
-					ztunnel.Spec.Version = newVersion.Name
-					Expect(cl.Update(ctx, ztunnel)).To(Succeed())
-
-					Success("Shared dependencies updated to latest version")
-				})
-
-				It("should have IstioCNI Ready with latest version", func(ctx SpecContext) {
-					Eventually(func(g Gomega) {
-						cni := &v1.IstioCNI{}
-						g.Expect(cl.Get(ctx, kube.Key("default"), cni)).To(Succeed())
-						g.Expect(cni.Spec.Version).To(Equal(newVersion.Name))
-						g.Expect(cni).To(HaveConditionStatus(v1.IstioCNIConditionReady, metav1.ConditionTrue))
-					}).WithTimeout(180*time.Second).Should(Succeed(), "IstioCNI should be Ready with new version")
-					Success("IstioCNI updated successfully")
-				})
-
-				It("should have ZTunnel Ready with latest version", func(ctx SpecContext) {
-					Eventually(func(g Gomega) {
-						ztunnel := &v1.ZTunnel{}
-						g.Expect(cl.Get(ctx, kube.Key("default"), ztunnel)).To(Succeed())
-						g.Expect(ztunnel.Spec.Version).To(Equal(newVersion.Name))
-						g.Expect(ztunnel).To(HaveConditionStatus(v1.ZTunnelConditionReady, metav1.ConditionTrue))
-					}).WithTimeout(180*time.Second).Should(Succeed(), "ZTunnel should be Ready with new version")
-					Success("ZTunnel updated successfully")
-				})
-
-				It("should keep default Istio revision healthy with updated dependencies", func(ctx SpecContext) {
-					// Default revision should remain healthy with new version of shared deps
-					Eventually(func(g Gomega) {
-						istio := &v1.Istio{}
-						g.Expect(cl.Get(ctx, kube.Key(istioName), istio)).To(Succeed())
-						g.Expect(istio).To(HaveConditionStatus(v1.IstioConditionReady, metav1.ConditionTrue))
-					}).WithTimeout(60*time.Second).Should(Succeed(), "Default Istio revision should remain Ready after dependency update")
-					Success("Default Istio revision remains healthy after dependency update")
-				})
-
-				It("should keep connectivity working after the update to latest version", func(ctx SpecContext) {
-					Eventually(func(g Gomega) {
-						// Validate connectivity after shared dependencies update
-						// Tests that sleep pod can reach httpbin service through the upgraded ZTunnel and CNI
-						// This confirms that updating shared components (IstioCNI + ZTunnel) doesn't affect
-						// workloads using the default (old) control plane revision
-						g.Expect(validator.ValidateConnectivity(ctx)).To(Succeed())
-						// Verify ZTunnel has been upgraded
-						// ZTunnel version should now be new version
-						g.Expect(validator.ValidateProxyVersion(ctx, newVersion.Version)).To(Succeed())
-					}).WithTimeout(120*time.Second).Should(Succeed(),
-						"Workloads should maintain connectivity with latest ZTunnel version")
-					Success("Workloads maintain connectivity with new shared dependencies")
-				})
-			})
-
 			When("canary IstioRevision is created with new version", func() {
+				// RevisionBased Istio CR creates an IstioRevision named <istio-name>-<version-with-dots-as-dashes>
+				canaryRevisionName := "canary-" + strings.ReplaceAll(newVersion.Name, ".", "-")
+
 				BeforeAll(func() {
 					revisionYAML := fmt.Sprintf(`
 apiVersion: sailoperator.io/v1
-kind: IstioRevision
+kind: Istio
 metadata:
   name: canary
 spec:
+  updateStrategy:
+    type: RevisionBased
   version: %s
   namespace: %s
   values:
     profile: ambient
-    revision: canary
-    global:
-      istioNamespace: %s
     pilot:
       cni:
         enabled: true
-      trustedZtunnelNamespace: ztunnel`, newVersion.Name, controlPlaneNamespace, controlPlaneNamespace)
-					Log("Creating canary IstioRevision with new version:", newVersion.Name)
+      trustedZtunnelNamespace: ztunnel`, newVersion.Name, controlPlaneNamespace)
+					Log("Creating canary Istio with new version:", newVersion.Name)
 					Expect(k.CreateFromString(revisionYAML)).To(Succeed())
-					Success("Canary IstioRevision created")
+					Success("Canary Istio created")
 				})
 
 				It("should become Ready", func(ctx SpecContext) {
 					Eventually(func(g Gomega) {
 						revision := &v1.IstioRevision{}
-						g.Expect(cl.Get(ctx, kube.Key("canary", controlPlaneNamespace), revision)).To(Succeed())
+						g.Expect(cl.Get(ctx, kube.Key(canaryRevisionName, controlPlaneNamespace), revision)).To(Succeed())
 						g.Expect(revision).To(HaveConditionStatus(v1.IstioRevisionConditionReady, metav1.ConditionTrue))
 					}).WithTimeout(240*time.Second).Should(Succeed(), "Canary revision should become Ready")
 					Success("Canary IstioRevision is Ready")
@@ -525,7 +463,7 @@ spec:
 
 					// Verify canary revision is Ready
 					canaryRevision := &v1.IstioRevision{}
-					Expect(cl.Get(ctx, kube.Key("canary", controlPlaneNamespace), canaryRevision)).To(Succeed())
+					Expect(cl.Get(ctx, kube.Key(canaryRevisionName, controlPlaneNamespace), canaryRevision)).To(Succeed())
 					Expect(canaryRevision).To(HaveConditionStatus(v1.IstioRevisionConditionReady, metav1.ConditionTrue))
 
 					// Verify both deployments exist
@@ -534,7 +472,7 @@ spec:
 					Expect(defaultDeployment.Status.AvailableReplicas).To(BeNumerically(">", 0))
 
 					canaryDeployment := &appsv1.Deployment{}
-					Expect(cl.Get(ctx, kube.Key("istiod-canary", controlPlaneNamespace), canaryDeployment)).To(Succeed())
+					Expect(cl.Get(ctx, kube.Key("istiod-"+canaryRevisionName, controlPlaneNamespace), canaryDeployment)).To(Succeed())
 					Expect(canaryDeployment.Status.AvailableReplicas).To(BeNumerically(">", 0))
 
 					Success("Default and canary revisions coexist successfully")
@@ -572,17 +510,19 @@ spec:
 					Success("Single ZTunnel DaemonSet shared by both revisions")
 				})
 
-				It("should have IstioCNI and ZTunnel at new version", func(ctx SpecContext) {
-					// Verify shared components were updated to new version
+				It("should have IstioCNI and ZTunnel at base version", func(ctx SpecContext) {
+					// Verify shared components remain at base version
+					// In revision-based updates, only the control plane has a new revision;
+					// shared dependencies stay at the base version
 					cni := &v1.IstioCNI{}
 					Expect(cl.Get(ctx, kube.Key("default"), cni)).To(Succeed())
-					Expect(cni.Spec.Version).To(Equal(newVersion.Name))
+					Expect(cni.Spec.Version).To(Equal(baseVersion.Name))
 
 					ztunnel := &v1.ZTunnel{}
 					Expect(cl.Get(ctx, kube.Key("default"), ztunnel)).To(Succeed())
-					Expect(ztunnel.Spec.Version).To(Equal(newVersion.Name))
+					Expect(ztunnel.Spec.Version).To(Equal(baseVersion.Name))
 
-					Success("Shared dependencies updated to new version")
+					Success("Shared dependencies remain at base version")
 				})
 			})
 
