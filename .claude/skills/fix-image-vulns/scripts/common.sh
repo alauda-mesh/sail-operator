@@ -8,7 +8,10 @@
 set -euo pipefail
 
 REPO="${FIX_REPO:-alauda-mesh/sail-operator}"
-SCAN_API="${SCAN_API:-http://192.168.25.100:8888}"
+# 内网镜像扫描服务：主备两个地址（备用地址的服务容易故障），scan-image.sh 探测选用；
+# 显式设 SCAN_API 则只用该地址，跳过主备探测与切换
+SCAN_API_PRIMARY="${SCAN_API_PRIMARY:-http://192.168.141.42:8888}"
+SCAN_API_BACKUP="${SCAN_API_BACKUP:-http://192.168.25.100:8888}"
 WORKFLOW_FILE="alauda-release.yaml"
 WORKFLOW_NAME="Alauda Release workflow"
 # 扫描/修复范围：只处理 servicemesh-operator2 主镜像；-bundle 镜像不会有漏洞，不在范围
