@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+
+# Copyright Alauda Mesh Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # 步骤 5：监控流水线 run，成功后收集新镜像供回归扫描。
 # 用法: watch-run.sh [RUN_ID]   缺省用状态里的 RELEASE_RUN_ID
 # 成功: ROUND+1，生成 images-round<N+1>.tsv（新镜像，-bundle 已排除）。
