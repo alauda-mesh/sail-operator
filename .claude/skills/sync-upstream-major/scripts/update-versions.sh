@@ -54,11 +54,17 @@ fi
 
 # ---------- 2) .github/workflows/alauda-release.yaml ----------
 WF=.github/workflows/alauda-release.yaml
-if grep -qE '^[[:space:]]*default: "stable,stable-[0-9.]+"$' "$WF"; then
-  sed -i -E "s/^([[:space:]]*)default: \"stable,stable-[0-9.]+\"$/\1default: \"$NEW_CHANNELS\"/" "$WF"
-  ok "$WF: bundle_channels 默认值 = \"$NEW_CHANNELS\""
+# 引号可有可无：make gen 的 github-workflow 目标写的是无引号形式（Makefile.core.mk 用
+# `CHANNELS := $(DEFAULT_CHANNEL),$(CHANNEL_PREFIX)-$(MINOR_VERSION)` 重算，丢掉了
+# Makefile.vendor.mk 里 CHANNELS 值自带的引号），而历史文件可能是带引号的。两种都接受
+# 并原样保留引号风格（sed 的 \2 反向引用要求首尾引号配对），verify.sh 第 7 项同样两种都认。
+# 结构上先改再验结果：只用 grep 做前置守卫的话，引号不配对的行会让 grep 放行而 sed 空转，
+# 报出「假 OK」——比假 FAIL 更危险。
+sed -i -E "s/^([[:space:]]*)default: (\"?)stable,stable-[0-9.]+\2\$/\1default: \2$NEW_CHANNELS\2/" "$WF"
+if grep -qE "^[[:space:]]*default: \"?$NEW_CHANNELS\"?$" "$WF"; then
+  ok "$WF: bundle_channels 默认值 = $NEW_CHANNELS"
 else
-  fail "$WF: 未匹配到 bundle_channels 的 default 行，手动改为 default: \"$NEW_CHANNELS\""
+  fail "$WF: 未匹配到 bundle_channels 的 default 行，手动改为 default: $NEW_CHANNELS"
 fi
 if [[ "$UPSTREAM_BRANCH" == "release-1.30" ]]; then
   # release-1.30 特例：上游 build-tools 镜像迁至 registry.istio.io，后续大版本同步不涉及
