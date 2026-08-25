@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+
+# Copyright Alauda Mesh Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # 步骤 2c：在修复 worktree 中升级 go.mod 依赖。
 # 用法: gomod-bump.sh <module@vX.Y.Z> [module@vX.Y.Z ...]
 #   例: gomod-bump.sh oras.land/oras-go/v2@v2.6.1
@@ -7,6 +21,7 @@
 # 退出码: 0=OK  非0=失败（保留现场供分析）
 # 注意: go get 下载依赖可能要几分钟，Bash timeout 设 600000。
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 main() {
@@ -16,7 +31,7 @@ main() {
   command -v go >/dev/null 2>&1 || die "找不到 go 工具链"
   local WT; WT="$(resolve_worktree)"
 
-  cd "$WT"
+  cd "$WT" || die "无法进入 worktree $WT"
   # go.mod 要求的 go 版本可能高于本机默认，auto 允许按需获取工具链
   export GOTOOLCHAIN="${GOTOOLCHAIN:-auto}"
   local before_go; before_go="$(sed -n 's/^go //p' go.mod | head -1)"

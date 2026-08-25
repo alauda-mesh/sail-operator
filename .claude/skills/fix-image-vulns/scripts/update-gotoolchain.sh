@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+
+# Copyright Alauda Mesh Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # 步骤 2b：在修复 worktree 中 pin/升级 alauda-release.yaml 的 GOTOOLCHAIN（修 go stdlib 漏洞）。
 # 用法: update-gotoolchain.sh <go1.X.Y>   例如: update-gotoolchain.sh go1.26.6
 # 机制: alauda-release.yaml 在 self-hosted runner 上直接用本机 go 编译二进制（gobuild.sh），
@@ -8,6 +22,7 @@
 # 脚本会打印 NOTICE 提示。
 # 退出码: 0=OK  1=失败（含 pin 低于 go.mod go directive 的情况）
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 main() {
@@ -18,7 +33,7 @@ main() {
   [[ "$V" =~ ^go1\.[0-9]+\.[0-9]+$ ]] || die "GOTOOLCHAIN 版本格式应为 go1.X.Y，收到: $V"
   local WT; WT="$(resolve_worktree)"
 
-  cd "$WT"
+  cd "$WT" || die "无法进入 worktree $WT"
   local f=".github/workflows/$WORKFLOW_FILE"
   [[ -f "$f" ]] || die "缺少 $f"
 

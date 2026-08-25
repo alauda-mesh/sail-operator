@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+
+# Copyright Alauda Mesh Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # fix-image-vulns 公共函数与状态管理。
 # 状态目录 out/fix-image-vulns/（out/ 在 .gitignore 内）：
 #   state.env          键值状态（ROUND、BASE_BRANCH、FIX_BRANCH、WORKTREE、PR_*、RELEASE_* 等）
@@ -13,6 +27,7 @@ REPO="${FIX_REPO:-alauda-mesh/sail-operator}"
 SCAN_API_PRIMARY="${SCAN_API_PRIMARY:-http://192.168.141.42:8888}"
 SCAN_API_BACKUP="${SCAN_API_BACKUP:-http://192.168.25.100:8888}"
 WORKFLOW_FILE="alauda-release.yaml"
+# shellcheck disable=SC2034  # 由 source 本文件的脚本使用
 WORKFLOW_NAME="Alauda Release workflow"
 # 扫描/修复范围：只处理 servicemesh-operator2 主镜像；-bundle 镜像不会有漏洞，不在范围
 IMAGE_REPO_NAME="servicemesh-operator2"

@@ -1,9 +1,24 @@
 #!/usr/bin/env bash
+
+# Copyright Alauda Mesh Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # 步骤 3：push 修复分支并创建 PR（base = BASE_BRANCH）。
 # 用法: create-pr.sh <PR正文文件>
 # 幂等：修复分支已有 open PR 时直接复用（回归轮 push 新 commit 即可）。
 # 输出: PR_NUMBER= / PR_URL=（同时写入状态）。
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 main() {
@@ -17,7 +32,7 @@ main() {
   [[ -n "${FIX_BRANCH:-}" ]] || die "状态中没有 FIX_BRANCH（先执行 create-fix-branch.sh）"
   local WT; WT="$(resolve_worktree)"
 
-  cd "$WT"
+  cd "$WT" || die "无法进入 worktree $WT"
   [[ "$(git branch --show-current)" == "$FIX_BRANCH" ]] || die "worktree 当前分支不是 $FIX_BRANCH"
   [[ -z "$(git status --porcelain)" ]] || die "worktree 有未提交改动，请先 commit -s（禁止 amend，一律新建 commit）"
   local n

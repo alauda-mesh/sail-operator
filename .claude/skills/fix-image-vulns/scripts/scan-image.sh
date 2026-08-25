@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+
+# Copyright Alauda Mesh Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # 步骤 1b / 步骤 6：调内网扫描服务扫当前轮镜像，并按修复责任分类。
 # 用法: scan-image.sh [轮次]   缺省用状态里的 ROUND
 # 分类:
@@ -16,6 +30,7 @@
 # 环境变量: SCAN_API_PRIMARY / SCAN_API_BACKUP、SCAN_API（显式指定单一服务，跳过主备探测与切换）、
 #           MAX_ATTEMPTS=3、RETRY_DELAY=15、SCAN_TIMEOUT=240
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 MAX_ATTEMPTS="${MAX_ATTEMPTS:-3}"

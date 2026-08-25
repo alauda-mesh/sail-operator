@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+
+# Copyright Alauda Mesh Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # 步骤 1a：解析输入（流水线 run 或镜像地址）→ 确定待扫描镜像与基分支，初始化本次任务状态。
 # 用法: resolve-input.sh <RUN_ID | run URL | 镜像地址>
 #   run 模式:  只接受 "Alauda Release workflow" 的成功 run，从 "Output image: " step 名提取镜像
@@ -7,6 +21,7 @@
 # 退出码: 0=OK  1=失败
 # 注意: run 模式需要 gh 认证；Bash timeout 建议 120000。
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 main() {
@@ -80,8 +95,10 @@ $all"
     echo "run $id [$WORKFLOW_NAME] 分支 $head_branch"
     echo "  $url"
     echo "  全部产出镜像:"
+    # shellcheck disable=SC2001  # 逐行加前缀，参数展开做不到
     sed 's/^/    /' <<<"$all"
     echo "  纳入扫描（-bundle 镜像不会有漏洞，不在范围）:"
+    # shellcheck disable=SC2001  # 逐行加前缀，参数展开做不到
     sed 's/^/    /' <<<"$kept"
     if [[ "$head_branch" != "$BASE_BRANCH" ]]; then
       echo

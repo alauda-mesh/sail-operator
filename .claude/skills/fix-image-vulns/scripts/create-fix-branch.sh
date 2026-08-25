@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+
+# Copyright Alauda Mesh Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # 步骤 2a：基于当前分支（BASE_BRANCH）创建修复分支（git worktree，不打扰主工作区当前检出）。
 # 用法: create-fix-branch.sh
 # 分支命名: fix/cve-<UTC日期>（如 fix/cve-20260729）
@@ -6,6 +20,7 @@
 # 幂等：worktree 已在对应修复分支上时直接复用（回归轮追加 commit 用）。
 # 输出: WORKTREE= / BRANCH= / BASE=
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 main() {
@@ -15,7 +30,7 @@ main() {
   git rev-parse --verify --quiet "refs/heads/$BASE_BRANCH" >/dev/null \
     || die "本地不存在分支 $BASE_BRANCH"
 
-  local FIX_BRANCH="fix/cve-$(date -u +%Y%m%d)"
+  local FIX_BRANCH; FIX_BRANCH="fix/cve-$(date -u +%Y%m%d)"
   local WT="$STATE_DIR/worktree"
 
   # 基分支落后 origin 时提醒（修复仍基于本地 HEAD，是否先同步由模型与用户判断）

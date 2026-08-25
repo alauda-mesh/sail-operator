@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+
+# Copyright Alauda Mesh Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # 步骤 4：在修复分支上触发 Alauda Release workflow 流水线（workflow_dispatch）。
 # 用法: run-release.sh
 # release_version = <Makefile.vendor.mk 的 VERSION>-r<UTC时间戳>（如 2.2.0-r20260729015404），
@@ -7,6 +21,7 @@
 # 退出码: 0=已触发并定位到 run  1=失败
 # 环境变量: FIX_APPEAR_TIMEOUT=120（等 run 出现的秒数）
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 APPEAR_TIMEOUT="${FIX_APPEAR_TIMEOUT:-120}"

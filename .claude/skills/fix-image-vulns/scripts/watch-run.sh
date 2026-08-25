@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+
+# Copyright Alauda Mesh Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 # 步骤 5：监控流水线 run，成功后收集新镜像供回归扫描。
 # 用法: watch-run.sh [RUN_ID]   缺省用状态里的 RELEASE_RUN_ID
 # 成功: ROUND+1，生成 images-round<N+1>.tsv（新镜像，-bundle 已排除）。
@@ -6,6 +20,7 @@
 # 环境变量: FIX_WATCH_INTERVAL=60  FIX_WATCH_TIMEOUT=5400
 # 注意: 多平台镜像构建通常几十分钟，必须用后台方式运行（Bash 的 run_in_background: true）。
 
+# shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 INTERVAL="${FIX_WATCH_INTERVAL:-60}"
@@ -66,6 +81,7 @@ main() {
   echo
   echo "RESULT: SUCCESS"
   echo "新镜像:"
+  # shellcheck disable=SC2001  # 逐行加前缀，参数展开做不到
   sed 's/^/  /' <<<"$imgs"
   echo "下一步: 执行 scan-image.sh 做第 ${NEXT} 轮回归扫描（Bash timeout 600000）"
 }

@@ -194,4 +194,4 @@ require (
 // 后组件以 fork 身份记录、脱离漏洞库匹配，并继承 fork 的安全修复。
 // 点位取 fork istio-1.XX 分支（对应上游 release-1.XX）最新提交，每次上游同步时一并更新，
 // 且必须包含上游 require 的 istio commit（sync-upstream-major 的 verify.sh 6b 校验）。
-replace istio.io/istio => github.com/alauda-mesh/istio v0.0.0-20260728064650-1509adfcdb2e
+replace istio.io/istio => github.com/alauda-mesh/istio v0.0.0-20260824125813-6af0e9d95685
