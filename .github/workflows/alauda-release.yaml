@@ -26,8 +26,8 @@ run-name: Release ${{ inputs.release_version }}
 env:
   # 显式 pin 编译用 go 版本，覆盖 runner 本机 go，避免 stdlib 漏洞进入镜像。
   # CVE-2026-33818/39821/46600/56853/56858/56859/56860/56862（stdlib）修于 go1.26.6，
-  # 取当前构建线 1.26 的最新 patch，不跨大版本。
-  GOTOOLCHAIN: go1.26.6
+  # 此处始终跟随构建线 1.26 的最新 patch（当前 go1.26.7），不跨大版本。
+  GOTOOLCHAIN: go1.26.7
   GIT_USER: ${{ secrets.GIT_USER }}
   GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
   VERSION: ${{ inputs.release_version }}
