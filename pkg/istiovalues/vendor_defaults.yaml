@@ -16,7 +16,7 @@
 # Note: After modifying this file, run `make test` to ensure that the
 # generated defaults values from this files are valid.
 
-v1.30.3:
+v1.30.4:
   istio:
     pilot:
       cni:
