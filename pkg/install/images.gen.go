@@ -20,11 +20,11 @@ import "github.com/istio-ecosystem/sail-operator/pkg/config"
 
 func init() {
 	config.Config.ImageDigests = map[string]config.IstioImageConfig{
-		"v1.30.3": {
-			IstiodImage:  "build-harbor.alauda.cn/asm/pilot:1.30.3-asm-r0",
-			ProxyImage:   "build-harbor.alauda.cn/asm/proxyv2:1.30.3-asm-r0",
-			CNIImage:     "build-harbor.alauda.cn/asm/install-cni:1.30.3-asm-r0",
-			ZTunnelImage: "build-harbor.alauda.cn/asm/ztunnel:1.30.3-asm-r0",
+		"v1.30.4": {
+			IstiodImage:  "build-harbor.alauda.cn/asm/pilot:1.30.4-asm-r0",
+			ProxyImage:   "build-harbor.alauda.cn/asm/proxyv2:1.30.4-asm-r0",
+			CNIImage:     "build-harbor.alauda.cn/asm/install-cni:1.30.4-asm-r0",
+			ZTunnelImage: "build-harbor.alauda.cn/asm/ztunnel:1.30.4-asm-r0",
 		},
 		"v1.28.6": {
 			IstiodImage:  "build-harbor.alauda.cn/asm/pilot:1.28.6-asm-r6",
