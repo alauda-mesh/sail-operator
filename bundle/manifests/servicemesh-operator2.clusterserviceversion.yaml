@@ -16,7 +16,7 @@ metadata:
               "inactiveRevisionDeletionGracePeriodSeconds": 30,
               "type": "InPlace"
             },
-            "version": "v1.30.3"
+            "version": "v1.30.4"
           }
         },
         {
@@ -27,7 +27,7 @@ metadata:
           },
           "spec": {
             "namespace": "istio-cni",
-            "version": "v1.30.3"
+            "version": "v1.30.4"
           }
         },
         {
@@ -38,14 +38,14 @@ metadata:
           },
           "spec": {
             "namespace": "ztunnel",
-            "version": "v1.30.3"
+            "version": "v1.30.4"
           }
         }
       ]
     capabilities: Seamless Upgrades
     categories: Integration & Delivery, Networking, Security
     containerImage: build-harbor.alauda.cn/asm/servicemesh-operator2:2.2.0
-    createdAt: "2026-08-24T23:33:50Z"
+    createdAt: "2026-08-28T11:41:35Z"
     description: Alauda Service Mesh v2 enables you to install, configure, and manage an instance of Alauda Service Mesh. Alauda Service Mesh is based on the open source Istio project.
     operatorframework.io/suggested-namespace: sail-operator
     operators.operatorframework.io/builder: operator-sdk-v1.42.3
@@ -173,13 +173,13 @@ spec:
         specDescriptors:
           - description: |-
               Defines the version of Istio to install.
-              Must be one of: v1.30-latest, v1.30.3, v1.28-latest, v1.28.6, v1.28.3, v1.28.1.
+              Must be one of: v1.30-latest, v1.30.4, v1.28-latest, v1.28.6, v1.28.3, v1.28.1.
             displayName: Istio Version
             path: version
             x-descriptors:
               - urn:alm:descriptor:com.tectonic.ui:fieldGroup:General
               - urn:alm:descriptor:com.tectonic.ui:select:v1.30-latest
-              - urn:alm:descriptor:com.tectonic.ui:select:v1.30.3
+              - urn:alm:descriptor:com.tectonic.ui:select:v1.30.4
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28-latest
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.6
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.3
@@ -221,12 +221,12 @@ spec:
         specDescriptors:
           - description: |-
               Defines the version of Istio to install.
-              Must be one of: v1.30.3, v1.28.6, v1.28.3, v1.28.1.
+              Must be one of: v1.30.4, v1.28.6, v1.28.3, v1.28.1.
             displayName: Istio Version
             path: version
             x-descriptors:
               - urn:alm:descriptor:com.tectonic.ui:fieldGroup:General
-              - urn:alm:descriptor:com.tectonic.ui:select:v1.30.3
+              - urn:alm:descriptor:com.tectonic.ui:select:v1.30.4
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.6
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.3
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.1
@@ -264,13 +264,13 @@ spec:
               - urn:alm:descriptor:com.tectonic.ui:select:RevisionBased
           - description: |-
               Defines the version of Istio to install.
-              Must be one of: v1.30-latest, v1.30.3, v1.28-latest, v1.28.6, v1.28.3, v1.28.1.
+              Must be one of: v1.30-latest, v1.30.4, v1.28-latest, v1.28.6, v1.28.3, v1.28.1.
             displayName: Istio Version
             path: version
             x-descriptors:
               - urn:alm:descriptor:com.tectonic.ui:fieldGroup:General
               - urn:alm:descriptor:com.tectonic.ui:select:v1.30-latest
-              - urn:alm:descriptor:com.tectonic.ui:select:v1.30.3
+              - urn:alm:descriptor:com.tectonic.ui:select:v1.30.4
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28-latest
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.6
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.3
@@ -330,13 +330,13 @@ spec:
         specDescriptors:
           - description: |-
               Defines the version of Istio to install.
-              Must be one of: v1.30-latest, v1.30.3, v1.28-latest, v1.28.6, v1.28.3, v1.28.1.
+              Must be one of: v1.30-latest, v1.30.4, v1.28-latest, v1.28.6, v1.28.3, v1.28.1.
             displayName: Istio Version
             path: version
             x-descriptors:
               - urn:alm:descriptor:com.tectonic.ui:fieldGroup:General
               - urn:alm:descriptor:com.tectonic.ui:select:v1.30-latest
-              - urn:alm:descriptor:com.tectonic.ui:select:v1.30.3
+              - urn:alm:descriptor:com.tectonic.ui:select:v1.30.4
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28-latest
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.6
               - urn:alm:descriptor:com.tectonic.ui:select:v1.28.3
@@ -748,10 +748,10 @@ spec:
                   images.v1_28_6.istiod: build-harbor.alauda.cn/asm/pilot:1.28.6-asm-r6
                   images.v1_28_6.proxy: build-harbor.alauda.cn/asm/proxyv2:1.28.6-asm-r6
                   images.v1_28_6.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.28.6-asm-r6
-                  images.v1_30_3.cni: build-harbor.alauda.cn/asm/install-cni:1.30.3-asm-r0
-                  images.v1_30_3.istiod: build-harbor.alauda.cn/asm/pilot:1.30.3-asm-r0
-                  images.v1_30_3.proxy: build-harbor.alauda.cn/asm/proxyv2:1.30.3-asm-r0
-                  images.v1_30_3.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.30.3-asm-r0
+                  images.v1_30_4.cni: build-harbor.alauda.cn/asm/install-cni:1.30.4-asm-r0
+                  images.v1_30_4.istiod: build-harbor.alauda.cn/asm/pilot:1.30.4-asm-r0
+                  images.v1_30_4.proxy: build-harbor.alauda.cn/asm/proxyv2:1.30.4-asm-r0
+                  images.v1_30_4.ztunnel: build-harbor.alauda.cn/asm/ztunnel:1.30.4-asm-r0
                   kubectl.kubernetes.io/default-container: sail-operator
                 labels:
                   app.kubernetes.io/created-by: servicemesh-operator2

@@ -1,9 +1,9 @@
 annotations:
-  org.opencontainers.image.ref.name: refs/tags/1.30.3-asm-r0
-  org.opencontainers.image.revision: 46a2d89ce81616f2d8068c618672681409d12ebe
+  org.opencontainers.image.ref.name: refs/tags/1.30.4-asm-r0
+  org.opencontainers.image.revision: ea51b70af75f491cef04dd068eca99bedc632ea4
   org.opencontainers.image.source: https://github.com/alauda-mesh/istio
 apiVersion: v2
-appVersion: 1.30.3-asm-r0
+appVersion: 1.30.4-asm-r0
 description: Helm chart for istio control plane
 icon: https://istio.io/latest/favicons/android-192x192.png
 keywords:
@@ -13,4 +13,4 @@ keywords:
 name: istiod
 sources:
 - https://github.com/istio/istio
-version: 1.30.3-asm-r0
+version: 1.30.4-asm-r0
