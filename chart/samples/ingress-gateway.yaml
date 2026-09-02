@@ -36,6 +36,11 @@ spec:
       containers:
       - name: istio-proxy
         image: auto # The image will automatically update each time the pod starts.
+        securityContext:
+          # Required by namespaces that enforce the restricted Pod Security Admission profile.
+          # The gateway injection template supplies the remaining fields.
+          seccompProfile:
+            type: RuntimeDefault
 
 ---
 # Set up roles to allow reading credentials for TLS
