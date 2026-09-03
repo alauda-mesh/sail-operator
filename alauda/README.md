@@ -2,13 +2,20 @@
 
 alauda-mesh/sail-operator 的维护类 AI skill 索引。所有 skill 均为显式调用：在 Claude Code 会话中输入 `/skill名 参数`，模型不会自动触发。
 
+## Alaude Sail Operator 源码改动历史
+
+```bash
+# feat(chart): add the RuntimeDefault seccomp profile to the ingress gateway sample
+git cherry-pick 771c401167fca26746edf3964c6204b0ab2b1960
+```
+
 ## 版本升级
 
 ### 大版本同步（sync-upstream-major）
 
 Skill: [.claude/skills/sync-upstream-major](../.claude/skills/sync-upstream-major/SKILL.md)
 
-同步上游 istio-ecosystem/sail-operator 的 `release-1.XX` 分支到本仓库目标分支，完成 mesh 大版本升级（如 istio 1.28 → 1.30、mesh 2.1 → 2.2）：merge 上游并按三层策略解决冲突、更新 alauda 版本矩阵、重新生成、校验、创建 PR、触发并监控 Alauda Release 流水线。小版本 patch 同步不在其范围。
+同步上游 istio-ecosystem/sail-operator 的 `release-1.XX` 分支到本仓库目标分支，完成 mesh 大版本升级（如 istio 1.28 → 1.30、mesh 2.1 → 2.2）：merge 上游并按三层策略解决冲突、更新 alauda 版本矩阵、重新生成、校验、创建 PR、触发并监控 Alauda Release 流水线。
 
 ```text
 /sync-upstream-major <上游release分支> <目标分支> <istio构建版本...>
@@ -19,7 +26,7 @@ Skill: [.claude/skills/sync-upstream-major](../.claude/skills/sync-upstream-majo
 
 ### 小版本同步
 
-TODO：小版本（patch）同步 skill 后续添加。
+可复用 sync-upstream-major Skill，并注明同步详细信息。
 
 ## 漏洞修复
 
